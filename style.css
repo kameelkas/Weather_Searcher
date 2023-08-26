@@ -1,0 +1,157 @@
+html {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+.light {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url("./images/sunset.jpg") no-repeat center center fixed;
+  /* Image Link: https://unsplash.com/photos/JFeOy62yjXk?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink */
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: url("./images/nightSky.jpg") no-repeat center center fixed;
+  /* Image Link: https://unsplash.com/photos/0289jpHHk0o?utm_source=unsplash&utm_medium=referral&utm_content=creditShareLink */
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+#lightDarkButton {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+}
+
+#lightDarkButton:hover {
+  background-color: lightgray;
+}
+
+label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons {
+  border: 0;
+  font-size: 25px;
+  justify-content: center;
+  background: none;
+  border: 2px solid black;
+  border-radius: 10px;
+  color: black;
+}
+
+.buttonsDark {
+  border: 0;
+  font-size: 25px;
+  justify-content: center;
+  background: none;
+  border: 2px solid white;
+  border-radius: 10px;
+  color: white;
+}
+
+.buttons:hover {
+  cursor: pointer;
+}
+
+#submitButton {
+  background-color: rgb(23, 92, 188);
+  margin-top: 5px;
+  width: auto;
+}
+
+#submitButton:hover {
+  background-color: lightslategray;
+}
+
+input {
+  background: lightgray;
+  padding: 10px 5px;
+  margin: 10px 5px 20px 5px;
+  border: 2.5px solid black;
+  border-radius: 10px;
+  width: 50vw;
+  font-size: 20px;
+}
+
+#inputDiv {
+  display: flex;
+  flex-direction: row;
+}
+
+#code {
+  width: 25vw;
+}
+
+#weather {
+  margin: 15px;
+}
+
+#error {
+  color: red;
+  font-size: 20px;
+  background-color: lightcoral;
+  border: 2px solid red;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lightgreen;
+  border: 2px solid green;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+img {
+  height: 100px;
+  width: 110px;
+}
+
+span {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: auto;
+  color: black;
+}
+
+#weatherInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 600px) {
+  #success {
+    flex-direction: column;
+  }
+}
