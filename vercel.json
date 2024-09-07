@@ -5,7 +5,7 @@
       }
     },
     "routes": [
-      { "src": "/api/getWeather", "dest": "/api/getWeather.php" },  
+      { "src": "/api/index", "dest": "/api/index.php" },  
       { "src": "/(.*)", "dest": "/index.html" }                      
     ]
   }
