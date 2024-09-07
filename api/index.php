@@ -1,4 +1,4 @@
-<?php
+ <?php
 error_reporting(0);
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
@@ -36,7 +36,8 @@ if (array_key_exists('inputCity', $_GET)) { //checking to see if a city was ente
             $longitude = $longLatValues['lon'];
         }
     } catch (Exception $e) {
-        $error = "Weather could not be found for given city. Please try again."; //result of unsucessful request
+        echo json_encode(["error" => "Weather could not be found for given city. Please try again."]); //result of unsucessful request
+        exit;
     }
 
     //building url to get weather info for requested city using acquired longitude & latitude values
@@ -62,61 +63,12 @@ if (array_key_exists('inputCity', $_GET)) { //checking to see if a city was ente
             $weather['feelsLikeF'] = round($feelsLikeF, 2);
         }
     } catch (Exception $e) {
-        $error = "Weather could not be found for given city. Please try again."; //result of unsucessful request
+        echo json_encode(["error" => "Weather could not be found for given city. Please try again."]); //result of unsucessful request
+        exit;
     }
+
+    echo json_encode($weather);
 } else {
-    $error = "Please enter a city.";
+    echo json_encode(["error" => "Please enter a city."]);
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather Searcher</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
-    <link rel="manifest" href="./favicon/site.webmanifest">
-    <link href="style.css" type="text/css" rel="stylesheet" />
-</head>
-
-<body>
-    <div id="container" class="light">
-        <button id="lightDarkButton" class="buttons">&#9681;</button>
-        <h1>What's the Weather?</h1>
-        <form>
-            <label for="city">Enter the name of a city <br> (And the 2 Digit ISO Code for cities that share the same name) </label>
-            <div id=inputDiv>
-                <input type="text" id="city" name="inputCity" placeholder="E.g. Abuja" />
-                <input type="text" id="code" name="inputCode" placeholder="E.g. NG" />
-            </div>
-            <button id="submitButton" class="buttons" type="submit">Search</button>
-        </form>
-        <div id="weather">
-            <?php
-            if (!empty($error)) { //showing error message when invalid city is given 
-                echo '<p id="error">' . $error . '</p>';
-            } else { //showing gathered weather info using values in weather info array
-                echo '<div id="success">' .
-                    '<img src=' . $weather['image'] . '>' .
-                    '<div id="weatherInfo">' .
-                    '<span>Weather Report for: ' . $weather['cityName'] . ', ' . $weather['countryCode'] . '</span>' .
-                    '<span>Weather: ' . $weather['main'] . '</span>' .
-                    '<span>Weather Description: ' . $weather['description'] . '</span>' .
-                    '<span>Temperature: ' . $weather['tempC'] . '°C / ' . $weather['tempF'] . '°F </span>' .
-                    '<span>Feels Like: ' . $weather['feelsLikeC'] . '°C / ' . $weather['feelsLikeF'] . '°F </span>' .
-                    '</div>' .
-                    '</div>';
-            }
-            ?>
-        </div>
-    </div>
-
-    <script src="javascript.js"></script>
-</body>
-
-</html>

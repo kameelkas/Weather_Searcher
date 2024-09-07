@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather Searcher</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./favicon/favicon-16x16.png">
+    <link rel="manifest" href="./favicon/site.webmanifest">
+    <link href="style.css" type="text/css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="container" class="light">
+        <button id="lightDarkButton" class="buttons">&#9681;</button>
+        <h1>What's the Weather?</h1>
+        <form id="weatherForm">
+            <label for="city">Enter the name of a city <br> (And the 2 Digit ISO Code for cities that share the same name) </label>
+            <div id="inputDiv">
+                <input type="text" id="city" name="inputCity" placeholder="E.g. Abuja" required />
+                <input type="text" id="code" name="inputCode" placeholder="E.g. NG" />
+            </div>
+            <button id="submitButton" class="buttons" type="submit">Search</button>
+        </form>
+        <div id="weather"></div>
+    </div>
+
+    <script>
+        document.getElementById('weatherForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const city = document.getElementById('city').value;
+            const code = document.getElementById('code').value;
+
+            try {
+                const response = await fetch(`/api/index.php?inputCity=${city}&inputCode=${code}`);
+                const data = await response.json();
+
+                const weatherDiv = document.getElementById('weather');
+                if (data.error) {
+                    weatherDiv.innerHTML = `<p id="error">${data.error}</p>`;
+                } else {
+                    weatherDiv.innerHTML = `
+                        <div id="success">
+                            <img src="${data.image}" />
+                            <div id="weatherInfo">
+                                <span>Weather Report for: ${data.cityName}, ${data.countryCode}</span>
+                                <span>Weather: ${data.main}</span>
+                                <span>Weather Description: ${data.description}</span>
+                                <span>Temperature: ${data.tempC}°C / ${data.tempF}°F </span>
+                                <span>Feels Like: ${data.feelsLikeC}°C / ${data.feelsLikeF}°F </span>
+                            </div>
+                        </div>`;
+                }
+            } catch (error) {
+                console.error("Error fetching weather data", error);
+            }
+        });
+    </script>
+</body>
+
+</html>
